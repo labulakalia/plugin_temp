@@ -1,7 +1,7 @@
 syntax = "proto3";
 
 package proto;
-option  go_package = "driver_plugin_temp/proto;proto";
+option  go_package = "github.com/labulakalia/plugin_temp/proto;proto";
 
 // plugin info from toml
 // zip
@@ -17,7 +17,7 @@ message DriverPluginConfig {
     string          released_time = 6;  // @gotags: toml:"released_time"
     string          url           = 7;  // @gotags: toml:"url"
     string          icon          = 8;  // @gotags: toml:"icon"
-    repeated string changelog     = 9;  // @gotags: toml:"released_changelog" gorm:"type:bytes;serializer:json"
+    repeated string changelog     = 9;  // @gotags: toml:"changelog" gorm:"type:bytes;serializer:json"
 }
 
 // note this is
@@ -88,12 +88,13 @@ message DirEntry {
 message FileResource {
     // video display VideoResolution
     enum VideoResolution {
-        VideoResolutionUnspecified = 0;
-        VideoResolutionOriginal    = 1;  // Origin
-        VideoResolutionHD          = 2;  // 720P high defintion
-        VideoResolutionFHD         = 3;  // 1080P full high defintion
-        VideoResolutionQHD         = 4;  // 2K  quad high defintion
-        VideoResolutionUHD         = 5;  // 4K ultra high defintion
+        Unspecified = 0;
+        Original    = 1;  // Origin
+        SD          = 2;  // 480P high defintion
+        HD          = 3;  // 720P high defintion
+        FHD         = 4;  // 1080P full high defintion
+        QHD         = 5;  // 2K  quad high defintion
+        UHD         = 6;  // 4K ultra high defintion
     }
     enum ResourceType {
         MediaResourceTypeUNSPECIFIED = 0;
@@ -101,12 +102,14 @@ message FileResource {
         Subtitle                     = 2;
         Audio                        = 3;
     }
-    string              url              = 1;
-    VideoResolution     video_resolution = 2;
-    uint64              expire_time      = 3;
-    ResourceType        resource_type    = 4;
-    string              title            = 5;
-    map<string, string> header           = 6;
-
-    Status status = 100;
+    message FileResourceData {
+        string              url              = 1;
+        VideoResolution     video_resolution = 2;
+        uint64              expire_time      = 3;
+        ResourceType        resource_type    = 4;
+        string              title            = 5;
+        map<string, string> header           = 6;
+    }
+    repeated FileResourceData file_resource_data = 1;
+    Status                    status             = 100;
 }
