@@ -3,23 +3,6 @@ syntax = "proto3";
 package proto;
 option  go_package = "github.com/labulakalia/plugin_temp/proto;proto";
 
-// plugin info from toml
-// zip
-// {plugin}.toml
-// ${id}.wasm
-// ${id}.png
-message DriverPluginConfig {
-    string          id            = 1;  // @gotags: toml:"id" gorm:"primaryKey"
-    string          name          = 2;  // @gotags: toml:"name" // driver plugin name,file must use ${name}.wasm
-    string          desc          = 3;  // @gotags: toml:"desc" // driver plugin desc
-    repeated string author        = 4;  // @gotags: toml:"author" gorm:"type:bytes;serializer:json"
-    string          version       = 5;  // @gotags: toml:"version"
-    string          released_time = 6;  // @gotags: toml:"released_time"
-    string          url           = 7;  // @gotags: toml:"url"
-    string          icon          = 8;  // @gotags: toml:"icon"
-    repeated string changelog     = 9;  // @gotags: toml:"changelog" gorm:"type:bytes;serializer:json"
-}
-
 // note this is
 enum AuthMethod {
     UNSPECIFIED = 0;
